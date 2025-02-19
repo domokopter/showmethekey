@@ -29,8 +29,6 @@ configure_file(
 
 subdir('showmethekey-cli')
 
-subdir('showmethekey-gtk')
-
 install_data(
   'LICENSE',
   install_dir: get_option('datadir') / 'licenses' / meson.project_name()
