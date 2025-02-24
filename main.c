@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <getopt.h>
+#include <string.h>
 // #include <libevdev/libevdev.h> // Arch has a different file path
 #include <libevdev-1.0/libevdev/libevdev.h>
 #include <libinput.h>
@@ -39,11 +40,10 @@ static const char *PROJECT_VERSION = "0.1.0 (alpha)";
 // ============================================================================
 
 enum error_code {
-    NO_ERROR,         // 0
-    UDEV_FAILED,      // 1
-    LIBINPUT_FAILED,  // 2
-    SEAT_FAILED,      // 3
-    PERMISSION_FAILED // 4
+    NO_ERROR,        // 0
+    UDEV_FAILED,     // 1
+    LIBINPUT_FAILED, // 2
+    SEAT_FAILED,     // 3
 };
 
 // ============================================================================
@@ -52,6 +52,9 @@ enum error_code {
 
 static int open_restricted(const char *path, int flags, void *user_data) {
     int fd = open(path, flags);
+    if (fd < 0)
+        fprintf(stderr, "Failed to open %s because of %s.\n", path,
+                strerror(errno));
     return fd < 0 ? -errno : fd;
 }
 
@@ -150,7 +153,7 @@ int main(int argc, char *argv[]) {
                 return NO_ERROR;
             default:
                 fprintf(stderr, "%s: Invalid option `-%c`.\n", argv[0], opt);
-                return PERMISSION_FAILED;
+                break;
             }
         }
     }
