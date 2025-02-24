@@ -199,5 +199,4 @@ int main(int argc, char *argv[]) {
     // Cleanup
     libinput_unref(libinput);
     udev_unref(udev);
-    return NO_ERROR;
 }
