@@ -1,2 +1,0 @@
-option('pkexec_path', type: 'string', value: 'pkexec',
-       description: 'Path of the pkexec program (or an alternative)')
