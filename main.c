@@ -105,8 +105,9 @@ static int print_key_event(struct libinput_event *event) {
     key_name = key_name ? key_name : "unknown";
 
     // JSON format
-    return printf("{\"key_name\": \"%s\", \"key_code\": %d}\n", key_name,
-                  key_code);
+    // TODO: Write keycodes to a file
+    return DEBUG_PRINT("{\"key_name\": \"%s\", \"key_code\": %d}\n", key_name,
+                       key_code);
 }
 
 static int handle_events(struct libinput *libinput) {
