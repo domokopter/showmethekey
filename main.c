@@ -141,20 +141,18 @@ int main(int argc, char *argv[]) {
         {NULL,      0,           NULL, 0  }
     };
 
-    { // Parse command line arguments
-        int opt = 0;
-        while ((opt = getopt_long(argc, argv, "vh", options, NULL)) != -1) {
-            switch (opt) {
-            case 'v':
-                printf("%s\n", PROJECT_VERSION);
-                return NO_ERROR;
-            case 'h':
-                print_help(argv[0]);
-                return NO_ERROR;
-            default:
-                fprintf(stderr, "%s: Invalid option `-%c`.\n", argv[0], opt);
-                break;
-            }
+    // Parse command line arguments
+    for (int opt = getopt_long(argc, argv, "vh", options, NULL); opt != -1;) {
+        switch (opt) {
+        case 'v':
+            printf("%s\n", PROJECT_VERSION);
+            return NO_ERROR;
+        case 'h':
+            print_help(argv[0]);
+            return NO_ERROR;
+        default:
+            fprintf(stderr, "%s: Invalid option `-%c`.\n", argv[0], opt);
+            break;
         }
     }
 
